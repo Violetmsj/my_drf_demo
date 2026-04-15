@@ -12,8 +12,8 @@ export default defineConfig({
       '/api': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
-        // 如果你的 Django 路由没有 /api 前缀，可以取消下面这行的注释
-        // rewrite: (path) => path.replace(/^\/api/, '')
+        // 后端实际路由从 /course/... 开始，这里去掉 /api 前缀后再转发给 Django。
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }

@@ -14,13 +14,19 @@ from rest_framework.decorators import (
     authentication_classes,
     permission_classes,
 )
+from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Course
 from .permissions import IsOwnerOrReadOnly
-from .serializers import CourseSerializer
+from .serializers import (
+    CourseSerializer,
+    LoginSerializer,
+    RegisterSerializer,
+    UserSerializer,
+)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)  # Django的信号机制
@@ -35,6 +41,50 @@ def generate_token(sender, instance=None, created=False, **kwargs):
     """
     if created:
         Token.objects.create(user=instance)
+
+
+class RegisterView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+
+
+class LoginView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response(
+            {
+                "token": token.key,
+                "user": UserSerializer(user).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        # 仅使当前请求携带的 Token 失效，不影响其他认证方式。
+        if request.auth:
+            request.auth.delete()
+        return Response({"detail": "退出登录成功"}, status=status.HTTP_200_OK)
+
+
+class CurrentUserView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        return Response(UserSerializer(request.user).data, status=status.HTTP_200_OK)
 
 
 """一、 函数式编程 Function Based View"""

@@ -11,6 +11,11 @@ router = DefaultRouter()
 router.register(prefix="viewsets", viewset=views.CourseViewSet)
 
 urlpatterns = [
+    # 认证接口
+    path("auth/register/", views.RegisterView.as_view(), name="auth-register"),
+    path("auth/login/", views.LoginView.as_view(), name="auth-login"),
+    path("auth/logout/", views.LogoutView.as_view(), name="auth-logout"),
+    path("auth/me/", views.CurrentUserView.as_view(), name="auth-me"),
     # Function Based View
     path("fbv/list/", views.course_list, name="fbv-list"),
     path("fbv/detail/<int:pk>/", views.course_detail, name="fbv-detail"),
