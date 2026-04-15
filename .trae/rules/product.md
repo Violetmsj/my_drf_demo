@@ -4,7 +4,7 @@ alwaysApply: true
 # 产品概述
 
 这是一个课程管理系统的演示项目（DRF Demo），用于展示 Django REST Framework 的各种视图模式和 API 设计方式。
-
+这是我用来学习 django 和 drf 的一个项目，我本身是一名前端开发工程师，我缺乏后端的思维，所以本项目主要是为了学习和理解 django 和 drf 的工作原理，前端方面只要能实现功能就行。
 ## 核心功能
 
 - 课程（Course）的增删改查 API
