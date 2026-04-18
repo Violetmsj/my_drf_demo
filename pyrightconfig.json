@@ -1,0 +1,17 @@
+{
+    "venvPath": "backend",
+    "venv": ".venv",
+    "typeCheckingMode": "basic",
+    "reportArgumentType": "none",
+    "include": [
+        "backend"
+    ],
+    "executionEnvironments": [
+        {
+            "root": "backend",
+            "extraPaths": [
+                "backend"
+            ]
+        }
+    ]
+}

@@ -6,5 +6,5 @@
 .Trashes
 
 # 编辑器目录
-.vscode/
+# .vscode/
 .idea/
