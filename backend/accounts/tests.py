@@ -7,10 +7,10 @@ from rest_framework.test import APITestCase
 
 class AuthApiTests(APITestCase):
     def setUp(self):
-        self.register_url = reverse("auth-register")
-        self.login_url = reverse("auth-login")
-        self.logout_url = reverse("auth-logout")
-        self.me_url = reverse("auth-me")
+        self.register_url = reverse("accounts:auth-register")
+        self.login_url = reverse("accounts:auth-login")
+        self.logout_url = reverse("accounts:auth-logout")
+        self.me_url = reverse("accounts:auth-me")
         self.password = "StrongPass123!"
         self.user = User.objects.create_user(
             username="existing_user",
@@ -80,3 +80,4 @@ class AuthApiTests(APITestCase):
 
         me_response = self.client.get(self.me_url)
         self.assertEqual(me_response.status_code, status.HTTP_401_UNAUTHORIZED)
+

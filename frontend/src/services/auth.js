@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 
 const TOKEN_KEY = 'drf-demo-token'
-const AUTH_API_BASE = '/api/course/auth'
+const AUTH_API_BASE = '/api/accounts/auth'
 
 export const authState = reactive({
   token: readStoredToken(),
