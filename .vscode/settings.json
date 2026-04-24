@@ -1,8 +1,5 @@
 {
     "kiroAgent.configureMCP": "Disabled",
     "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}/backend"
-    ],
     "python.terminal.activateEnvironment": true
 }
